@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'surname', 'nick', 'email', 'password', 'role', 'thumb', 'tool', 'active'
     ];
 
     /**
@@ -26,4 +26,28 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function groups() {
+        return $this->belongsToMany('App/Group');
+    }
+
+    public function teams() {
+        return $this->belongsToMany('App/Team');
+    }
+
+    public function tasks_manager() {
+        return $this->hasMany('App/Task','manager_id');
+    }
+
+    public function teams_manager() {
+        return $this->hasMany('App/Team','manager_id');
+    }
+
+    public function groups_manager() {
+        return $this->hasMany('App/Group','manager_id');
+    }
+
+    public function scores() {
+        return $this->hasMany('App/Score');
+    }
 }
