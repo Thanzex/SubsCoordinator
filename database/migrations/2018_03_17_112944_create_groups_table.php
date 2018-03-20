@@ -15,6 +15,10 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
+            // $table->integer('task_id');
+            $table->integer('group');
+            $table->boolean('active');
+            $table->integer('manager_id');
             $table->timestamps();
         });
     }

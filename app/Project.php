@@ -13,10 +13,10 @@ class Project extends Model
     ];
 
     public function team() {
-        return $this->hasOne('App/Team');
+        return $this->hasOne(Team::class);
     }
 
     public function tasks() {
-        return $this->hasMany('App/Task');
+        return $this->hasMany(Task::class);
     }
 }

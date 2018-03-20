@@ -7,19 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     //
-    protected $fillable =[
-        'project_id', 'team', 'manager_id'
-    ];
+    /* protected $fillable =[
+        'task_id', 'team', 'manager_id'
+    ]; */
+
+    protected $guarded = [];
 
     public function project() {
-        return $this->belongsTo('App/Project');
+        return $this->belongsTo(Task::class);
     }
 
     public function members() {
-        return $this->belongsToMany('App/User');
+        return $this->belongsToMany(User::class);
     }
 
     public function manager() {
-        return $this->belongsTo('App/User','manager_id');
+        return $this->hasOne(User::class,'manager_id');
     }
 }

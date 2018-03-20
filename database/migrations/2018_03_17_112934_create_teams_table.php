@@ -17,10 +17,8 @@ class CreateTeamsTable extends Migration
             $table->increments('id');
             $table->integer('project_id');
             $table->integer('group');
-            $table->string('thumb');
-            $table->integer('season');
-            $table->integer('episode');
             $table->boolean('active');
+            $table->integer('manager_id');
             $table->timestamps();
         });
     }

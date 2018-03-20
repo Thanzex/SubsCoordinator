@@ -20,10 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('nick')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('role');
-            $table->string('thumb');
-            $table->string('tool');
-            $table->boolean('active');
+            $table->integer('role')->default(5);
+            $table->string('thumb')->default("");
+            $table->string('tool')->default("vss");
+            $table->boolean('active')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

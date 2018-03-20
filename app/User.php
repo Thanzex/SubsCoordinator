@@ -28,26 +28,26 @@ class User extends Authenticatable
     ];
 
     public function groups() {
-        return $this->belongsToMany('App/Group');
+        return $this->belongsToMany(Group::class);
     }
 
     public function teams() {
-        return $this->belongsToMany('App/Team');
+        return $this->belongsToMany(Team::class);
     }
 
     public function tasks_manager() {
-        return $this->hasMany('App/Task','manager_id');
+        return $this->belongsToMany(Task::class,'manager_id');
     }
 
     public function teams_manager() {
-        return $this->hasMany('App/Team','manager_id');
+        return $this->belongsToMany(Team::class,'manager_id');
     }
 
     public function groups_manager() {
-        return $this->hasMany('App/Group','manager_id');
+        return $this->BelongsToMany(Group::class,'manager_id');
     }
 
     public function scores() {
-        return $this->hasMany('App/Score');
+        return $this->hasMany(Score::class);
     }
 }
