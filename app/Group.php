@@ -14,7 +14,11 @@ class Group extends Model
     protected $guarded = [];
 
     public function project() {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Project::class);
+    }
+
+    public function task() {
+        return $this->hasOne(Task::class);
     }
 
     public function members() {

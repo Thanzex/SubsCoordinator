@@ -14,14 +14,14 @@ class Team extends Model
     protected $guarded =[];
 
     public function project() {
-        return $this->belongsTo('App/Project');
+        return $this->belongsTo(Project::class);
     }
 
     public function members() {
-        return $this->belongsToMany('App/User');
+        return $this->belongsToMany(User::class);
     }
 
     public function manager() {
-        return $this->belongsTo('App/User','manager_id');
+        return $this->belongsTo(User::class,'manager_id');
     }
 }

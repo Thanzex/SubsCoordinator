@@ -1,4 +1,4 @@
-@section("footer")
+{{--  @section("footer")  --}}
 
 <!-- FOOTER -->
 
@@ -9,4 +9,4 @@
 </div>
 <!-- FOOTER -->
 
-@endsection
+{{--  @endsection  --}}

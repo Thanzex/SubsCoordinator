@@ -27,27 +27,52 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function groups() {
+    public function groups() 
+    {
         return $this->belongsToMany(Group::class);
     }
 
-    public function teams() {
-        return $this->belongsToMany(Team::class);
+    public function tasks() 
+    {
+        /* $t = collect();
+        $g = $this->groups()->get();
+        foreach($g as $gruppo) {
+            $task=$gruppo->task()->get();
+            $t->push($task->push($task[0]->name()));
+        }
+        return $t; */
+        return $this->groups()->with(['task','task.project:name,id','members:nick']);//->where('active','=','1');
+        //return $this->hasManyThrough(Task::class,Group::class);
     }
 
-    public function tasks_manager() {
-        return $this->belongsToMany(Task::class,'manager_id');
+    public function activeTasks() 
+    {
+        return $this->tasks->where('active', '=', '1');
     }
 
-    public function teams_manager() {
-        return $this->belongsToMany(Team::class,'manager_id');
+    public function teams() 
+    {
+        return $this->belongsToMany(Team::class)->with(['project']);
     }
 
-    public function groups_manager() {
-        return $this->BelongsToMany(Group::class,'manager_id');
+    public function tasks_manager() 
+    {
+        return $this->HasMany(Task::class, 'manager_id')->with(['project:name,id','group.members:nick']);
     }
 
-    public function scores() {
+    public function teams_manager() 
+    {
+        return $this->belongsToMany(Team::class, 'manager_id');
+    }
+
+    public function groups_manager() 
+    {
+        return $this->BelongsToMany(Group::class, 'manager_id');
+    }
+
+
+    public function scores() 
+    {
         return $this->hasMany(Score::class);
     }
 }

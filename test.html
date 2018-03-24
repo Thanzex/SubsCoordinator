@@ -10,6 +10,12 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S"
+    crossorigin="anonymous">
+
+
+
 </head>
 
 <body>
@@ -66,12 +72,145 @@
 
 
   <!-- BODY -->
-  <div class="row">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8"></div>
-    <div class="col-sm-2"></div>
+  <!-- <div class="container-fluid">
+    <div class="col"></div>
+    <div class="col">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h2>Traduzioni Attive:</h2>
+            <div class="card border-warning">
+              <div class="card-body">
+                <div class="row inline align-items-center">
+                  <div class="col-auto card-text">
+                    <strong>{{NomeProject}}</strong>
+                  </div>
+                  <div class="col-auto card-text">
+                    S:{{s}} E:{{e}} Consegna: {{deadline}}
+                  </div>
+                  <div class="col text-right">
+                    <a name="magnet" id="magnet" class="btn btn-primary mr-1" href="#" role="button">
+                      <i class="fas fa-magnet"></i>
+                    </a>
+                    <a name="diretto" id="dirett" class="btn btn-primary mr-1" href="#" role="button">
+                      <i class="fas fa-cloud-download-alt"></i>
+                    </a>
+                    <a name="base" id="base" class="btn btn-primary mr-1" href="#" role="button">
+                      <i class="fas fa-file-alt"></i>
+                    </a>
+                    <a name="facebook" id="facebook" class="btn btn-primary mr-1" href="#" role="button">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a name="users" id="users" class="btn btn-primary mr-1" href="#multiCollapseExample1" role="button" data-toggle="collapse">
+                      <i class="fas fa-users"></i>
+                    </a>
+                    <a name="guida" id="guida" class="btn btn-primary mr-1" href="#" role="button">
+                      <i class="fas fa-question"></i>
+                    </a>
+                    <a name="upload" id="upload" class="btn btn-primary mr-1" href="#" role="button">
+                      <i class="fas fa-upload"></i>
+                    </a>
+
+                  </div>
+                </div>
+                <div class="row collapse multi-collapse" id="multiCollapseExample1">
+                  <div class="col">
+                    <strong>Team:</strong>
+                    <ol>
+                      <li>{{User1}}</li>
+                      <li>{{User1}}</li>
+                      <li>{{User1}}</li>
+                      <li>{{User1}}</li>
+                      <li>{{User1}}</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mt-2">
+          <div class="col">
+            <h2>Fai parte di questi Team:</h2>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card">
+                  <img class="card-img-top" src="{{thumb serie}}" alt="Thumb Serie">
+                  <div class="card-body">
+                    <h4 class="card-title">{{Nome Serie}}</h4>
+                    <p class="card-text">{{boh}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col"></div>
+  </div> -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+
+      </div>
+      <div class="col-8">
+        <h3>Gruppo:</h3>
+        <ul class="list-group">
+          <li class="list-group-item p-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button type="button" class="btn btn-danger">&times;</button>
+              </div>
+              <input type="text" class="form-control" name="nick1" id="nick1" placeholder="Nick">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="handle">&equiv;</span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item p-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button type="button" class="btn btn-danger">&times;</button>
+              </div>
+              <input type="text" class="form-control" name="nick1" id="nick1" placeholder="Nick">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="handle">&equiv;</span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item p-2 inline">
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-success list-inline-item">&plus;</button>
+                <button type="button" class="btn btn-info list-inline-item item">Carica precedente</button>
+                <button type="button" class="btn btn-info list-inline-item item">Carica Team</button>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary list-inline-item item">Crea</button>
+              </div>
+            </div>
+
+
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
   </div>
-  
+
   <!-- BODY -->
 
 

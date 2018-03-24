@@ -11,10 +11,13 @@
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
+  <script type="text/javascript" src="{{ URL::asset('js/feather.min.js') }}"></script>
+
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -22,9 +25,14 @@
 <body>
   @include("sections.navbar")
 
-  @section("content")
-  @endsection
+  @yield("content")
+  {{--  @endsection  --}}
 
   @include("sections.footer")
 </body>
+
+<script>
+  feather.replace();
+</script>
+
 </html>

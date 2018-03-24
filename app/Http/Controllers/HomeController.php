@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $tasks = Auth::user()->activeTasks();
+        $revs = Auth::user()->tasks_manager()->get();
+        $teams = Auth::user()->teams;
+        return view('home', ["tasks"=>$tasks , "revs"=>$revs , 'teams' =>$teams ]);
     }
 }

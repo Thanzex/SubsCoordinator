@@ -1,0 +1,21 @@
+Models/Migrations:
+  Task:
+    ☐ Deadline
+    ☐ Traduttore ha consegnato
+    ☐ Tutti i traduttori hanno consegnato
+  Gruppo-User:
+    ☐ Ordine
+
+  ☐ Consegne
+
+
+Views:
+  ☐ Guida
+  Home:
+    ✔ Traduzioni attive @done (2018-3-23 13:02:42)
+    ☐ Team attivi
+  Profilo:
+
+
+    
+    
