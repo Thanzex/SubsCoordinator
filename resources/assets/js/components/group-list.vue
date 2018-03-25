@@ -43,9 +43,8 @@
 <script>
 $(document).ready( function() {
   setWidth();
-})
-$(window).resize( function() {
-  setWidth();
+
+  new ResizeObserver(setWidth).observe(document.querySelector('.input-group'));
 })
 
 function setWidth() {
@@ -85,6 +84,7 @@ export default {
     removeUser: function(index) {
       Vue.delete(this.utenti, index);
       this.$nextTick(function () {
+        console.log("dom updated");
         $('.selectpicker').selectpicker('refresh')
       })
       

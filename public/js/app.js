@@ -49923,9 +49923,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 $(document).ready(function () {
   setWidth();
-});
-$(window).resize(function () {
-  setWidth();
+
+  new ResizeObserver(setWidth).observe(document.querySelector('.input-group'));
 });
 
 function setWidth() {
@@ -49966,6 +49965,7 @@ function setWidth() {
     removeUser: function removeUser(index) {
       Vue.delete(this.utenti, index);
       this.$nextTick(function () {
+        console.log("dom updated");
         $('.selectpicker').selectpicker('refresh');
       });
     }
