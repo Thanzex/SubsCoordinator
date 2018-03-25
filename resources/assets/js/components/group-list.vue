@@ -6,7 +6,12 @@
             <div class="input-group-prepend">
               <button type="button" v-on:click="removeUser(index)" class="btn btn-danger" >&times;</button>
             </div>
-            <input type="text" class="form-control" name="nick" id="nick" placeholder="Nick" :value="utente.nick">
+            <!-- <input type="text" class="form-control" name="nick" id="nick" placeholder="Nick" :value="utente.nick"> -->
+            <div class="input-group-append select-width">
+              <select class="form-control selectpicker" name="selector" id="selector"  data-live-search="true">
+                <option v-for="user in users" :data-tokens="user.name + ' ' + user.nick">{{user.nick}}</option>
+              </select>
+            </div>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="handle">&equiv;</span>
@@ -33,10 +38,22 @@
       </li>
     </ul>
 
-    
 </template>
 
 <script>
+$(document).ready( function() {
+  setWidth();
+})
+$(window).resize( function() {
+  setWidth();
+})
+
+function setWidth() {
+var total = $('.input-group').width();
+var b1 = $('.input-group-prepend').width();
+$('.select-width').width(total-(2*b1));
+}
+
 import draggable from "vuedraggable";
 export default {
   mounted() {
@@ -45,27 +62,34 @@ export default {
   components: {
     draggable
   },
-  props: ["group"],
+  props: ["group", "users"],
   data() {
     return {
       nutente: {
-        nick:"",
-        pivot:{
-          group_id:"",
-          user_id:""
+        nick: "",
+        pivot: {
+          group_id: "",
+          user_id: ""
         }
       },
       utenti: this.group,
-      csrf: document.head.querySelector('meta[name="csrf-token"]').content,
+      csrf: document.head.querySelector('meta[name="csrf-token"]').content
     };
   },
   methods: {
     addUser: function() {
-      this.utenti.push(Vue.util.extend({}, this.nutente))
+      this.utenti.push(Vue.util.extend({}, this.nutente));
+      $('.selectpicker').selectpicker('refresh')
+
     },
     removeUser: function(index) {
-      Vue.delete(this.utenti, index)
-    },
+      Vue.delete(this.utenti, index);
+      this.$nextTick(function () {
+        $('.selectpicker').selectpicker('refresh')
+      })
+      
+
+    }
   }
 };
 </script>

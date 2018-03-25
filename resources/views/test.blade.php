@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col">
       <div id="app">
-        <group-list :group="{{$group}}"></group-list>
+        <group-list :group="{{$group}}" :users="{{$users}}"></group-list>
       </div>
     </div>
   </div>

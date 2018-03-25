@@ -18,6 +18,10 @@
     "lodash": "^4.17.4",
     "popper.js": "^1.12",
     "vue": "^2.5.7",
-    "vuedraggable": "^2.16.0"
+    "vuedraggable": "^2.16.0",
+    "bootstrap-select": "file:bootstrap-select"
+  },
+  "dependencies": {
+    "node-notifier": "^5.2.1"
   }
 }
