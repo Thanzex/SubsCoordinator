@@ -78,14 +78,19 @@ export default {
   methods: {
     addUser: function() {
       this.utenti.push(Vue.util.extend({}, this.nutente));
-      $('.selectpicker').selectpicker('refresh')
+      this.$nextTick(function () {
+        console.log("dom updated");
+        $('.selectpicker').selectpicker('refresh');
+        setWidth();
+      })
 
     },
     removeUser: function(index) {
       Vue.delete(this.utenti, index);
       this.$nextTick(function () {
         console.log("dom updated");
-        $('.selectpicker').selectpicker('refresh')
+        $('.selectpicker').selectpicker('refresh');
+        setWidth();
       })
       
 
