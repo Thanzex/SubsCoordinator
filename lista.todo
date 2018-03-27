@@ -5,6 +5,11 @@ Models/Migrations:
     ☐ Tutti i traduttori hanno consegnato
   Gruppo-User:
     ☐ Ordine
+  Progetto-Team:
+    ☐ Progetto belongs to Team
+
+  Task-Group:
+    ☐ Task belongs to Team
 
   ☐ Consegne
 
@@ -13,7 +18,7 @@ Views:
   ☐ Guida
   Home:
     ✔ Traduzioni attive @done (2018-3-23 13:02:42)
-    ☐ Team attivi
+    ✔ Team attivi @done (2018-3-25 17:36:07)
   Profilo:
 
 

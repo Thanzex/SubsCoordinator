@@ -15,22 +15,22 @@
       </li>
       @if (Auth::user()->role < 5)
       <li class="nav-item">
-        <a class="nav-link" href="#">Film/Serie</a>
+        <a class="nav-link" href="#"><div data-feather="folder" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Film/Serie</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Traduzioni</a>
+        <a class="nav-link" href="#"><div data-feather="film" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Traduzioni</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Utenti</a>
+        <a class="nav-link" href="#"><div data-feather="users" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Utenti</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Statistiche</a>
+        <a class="nav-link" href="#"><div data-feather="percent" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Statistiche</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Voti</a>
+        <a class="nav-link" href="#"><div data-feather="award" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Voti</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Admin</a>
+        <a class="nav-link" href="#"><div data-feather="clipboard" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Admin</a>
       </li>
       @endif
       <li class="nav-item dropdown ml-auto">

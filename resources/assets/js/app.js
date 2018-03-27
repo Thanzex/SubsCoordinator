@@ -23,3 +23,9 @@ const app = new Vue({
     el: '#app'
 });
 Vue.config.devtools = true;
+
+$("#createForm").submit(function(e){
+    // e.preventDefault();
+    console.log($("#createForm").serialize());
+    // $("#createForm").submit();
+});

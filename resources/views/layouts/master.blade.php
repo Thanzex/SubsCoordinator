@@ -28,7 +28,7 @@
   @yield("content")
   {{--  @endsection  --}}
 
-  @include("sections.footer")
+  {{--  @include("sections.footer")  --}}
 </body>
 
 <script>

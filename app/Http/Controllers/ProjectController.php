@@ -14,6 +14,8 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        $projects = \App\Project::all();
+        return view('project.projects')->with("projects",$projects);
     }
 
     /**
@@ -24,6 +26,11 @@ class ProjectController extends Controller
     public function create()
     {
         //
+        //Log::debug('project.create');
+        //error_log("project.create")
+        return view('project.create', ["users" => \App\User::all()]);
+        //return "test";
+
     }
 
     /**
@@ -34,7 +41,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //App\Task::first()->group->members()->attach(App\User::where('nick', '=', 'nick4')->get())
+        return $request;
     }
 
     /**
@@ -80,5 +88,6 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+        return "test";
     }
 }

@@ -13891,6 +13891,12 @@ var app = new Vue({
 });
 Vue.config.devtools = true;
 
+$("#createForm").submit(function (e) {
+  // e.preventDefault();
+  console.log($("#createForm").serialize());
+  // $("#createForm").submit();
+});
+
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -49920,48 +49926,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 $(document).ready(function () {
   setWidth();
+  // var observer = new MutationObserver(function() {
+  // $('.list-group').on('show', function(){
+  // new ResizeObserver(setWidth).observe(document.querySelector('.input-group'));
+  // console.log("Observing!");
+  // }).observe(document.querySelector('.input-group'));
+  // );
 
-  new ResizeObserver(setWidth).observe(document.querySelector('.input-group'));
+  // var observer = new MutationObserver(function(mutations) {
+  //     mutations.forEach(function(mutation) {
+  //         console.log(mutation)
+  //         if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+  //             // element added to DOM
+  //             var hasClass = [].some.call(mutation.addedNodes, function(el) {
+  //                 return el.classList.contains('.input-group')
+  //             });
+  //             if (hasClass) {
+  //                 // element has class `MyClass`
+  //                 console.log('element ".input-group" added');
+  //             }
+  //         }
+  //     });
+  //  });
+
+  // var config = {
+  //     attributes: true,
+  //     childList: true,
+  //     characterData: true
+  // };
+
+  // observer.observe(document.body, config);
+  window.onresize = function () {
+    setWidth();
+  };
 });
 
 function setWidth() {
   var total = $('.input-group').width();
   var b1 = $('.input-group-prepend').width();
-  $('.select-width').width(total - 2 * b1);
+  var b2 = $('.vue-group-append-number').outerWidth(true);
+  $('.select-width').width(total - (2 * b1 + b2));
 }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log("Component mounted.");
+    this.utenti = this.present ? this.present : [];
   },
 
   components: {
     draggable: __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default.a
   },
-  props: ["group", "users"],
+  props: ["present", "users", 'previous_1', 'previous_2'],
   data: function data() {
     return {
-      nutente: {
-        nick: "",
-        pivot: {
-          group_id: "",
-          user_id: ""
-        }
-      },
-      utenti: this.group,
+      utenti: [],
       csrf: document.head.querySelector('meta[name="csrf-token"]').content
     };
   },
 
   methods: {
     addUser: function addUser() {
-      this.utenti.push(Vue.util.extend({}, this.nutente));
+      //this.utenti.push(Vue.util.extend({}, this.nutente));
+      this.utenti.push({ name: "", nick: "", v_id: token() });
       this.$nextTick(function () {
-        console.log("dom updated");
         $('.selectpicker').selectpicker('refresh');
         setWidth();
       });
@@ -49969,13 +50006,34 @@ function setWidth() {
     removeUser: function removeUser(index) {
       Vue.delete(this.utenti, index);
       this.$nextTick(function () {
-        console.log("dom updated");
+        $('.selectpicker').selectpicker('refresh');
+        setWidth();
+      });
+    },
+    loadPrevious1: function loadPrevious1() {
+      this.utenti = this.previous_1;
+      this.$nextTick(function () {
+        $('.selectpicker').selectpicker('refresh');
+        setWidth();
+      });
+    },
+    loadPrevious2: function loadPrevious2() {
+      this.utenti = this.previous_2;
+      this.$nextTick(function () {
         $('.selectpicker').selectpicker('refresh');
         setWidth();
       });
     }
   }
 });
+
+var rand = function rand() {
+  return Math.random().toString(36).substr(2); // remove `0.`
+};
+
+var token = function token() {
+  return rand() + rand(); // to make it longer
+};
 
 /***/ }),
 /* 43 */
@@ -51952,65 +52010,6 @@ var render = function() {
     "ul",
     { staticClass: "list-group" },
     [
-      _c(
-        "draggable",
-        {
-          attrs: {
-            list: _vm.utenti,
-            options: { animation: 200, handle: ".handle" },
-            element: "div"
-          }
-        },
-        _vm._l(_vm.utenti, function(utente, index) {
-          return _c("li", { staticClass: "list-group-item p-2" }, [
-            _c("div", { staticClass: "input-group" }, [
-              _c("div", { staticClass: "input-group-prepend" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.removeUser(index)
-                      }
-                    }
-                  },
-                  [_vm._v("×")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-append select-width" }, [
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-control selectpicker",
-                    attrs: {
-                      name: "selector",
-                      id: "selector",
-                      "data-live-search": "true"
-                    }
-                  },
-                  _vm._l(_vm.users, function(user) {
-                    return _c(
-                      "option",
-                      { attrs: { "data-tokens": user.name + " " + user.nick } },
-                      [_vm._v(_vm._s(user.nick))]
-                    )
-                  })
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
-                _c("div", { staticClass: "input-group-text" }, [
-                  _c("span", { staticClass: "handle" }, [_vm._v("≡")])
-                ])
-              ])
-            ])
-          ])
-        })
-      ),
-      _vm._v(" "),
       _c("li", { staticClass: "list-group-item p-2 inline" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col" }, [
@@ -52024,49 +52023,160 @@ var render = function() {
               [_vm._v("+")]
             ),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-info list-inline-item item",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Carica precedente")]
-            ),
+            _vm.previous_1
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-info list-inline-item item",
+                    attrs: { type: "button" },
+                    on: { click: _vm.loadPrevious1 }
+                  },
+                  [_vm._v("Carica precedente")]
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-info list-inline-item item",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Carica Team")]
-            )
+            _vm.previous_2
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-info list-inline-item item",
+                    attrs: { type: "button" },
+                    on: { click: _vm.loadPrevious2 }
+                  },
+                  [_vm._v("Carica Team")]
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "col-auto" })
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: "groupNumber" },
+        domProps: { value: _vm.utenti.length }
+      }),
+      _vm._v(" "),
+      _c(
+        "draggable",
+        {
+          attrs: {
+            list: _vm.utenti,
+            options: { animation: 200, handle: ".handle" },
+            element: "div"
+          }
+        },
+        _vm._l(_vm.utenti, function(utente, index) {
+          return _c(
+            "li",
+            { key: utente.v_id, staticClass: "list-group-item p-2" },
+            [
+              _c(
+                "div",
+                { staticClass: "input-group", staticStyle: { "z-index": "0" } },
+                [
+                  _c("div", { staticClass: "input-group-prepend" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.removeUser(index)
+                          }
+                        }
+                      },
+                      [_vm._v("×")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-append" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "input-group-text vue-group-append-number"
+                      },
+                      [_c("span", {}, [_vm._v(_vm._s(index + 1))])]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "input-group-append select-width" },
+                    [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: utente.nick,
+                              expression: "utente.nick"
+                            }
+                          ],
+                          staticClass: "form-control selectpicker",
+                          attrs: { name: "groupMember[]", id: "selector" },
+                          domProps: { value: utente.nick },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                utente,
+                                "nick",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.users, function(user) {
+                          return _c(
+                            "option",
+                            {
+                              key: user.nick,
+                              attrs: {
+                                "data-tokens":
+                                  user.name +
+                                  " " +
+                                  user.surname +
+                                  " " +
+                                  user.nick
+                              },
+                              domProps: { value: user.nick }
+                            },
+                            [_vm._v(_vm._s(user.nick))]
+                          )
+                        })
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-append" }, [
+                    _c("div", { staticClass: "input-group-text" }, [
+                      _c("span", { staticClass: "handle" }, [_vm._v("≡")])
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        })
+      )
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-auto" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary list-inline-item item",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Crea")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

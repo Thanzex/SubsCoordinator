@@ -19,3 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', 'TestController@index')->name('test')->middleware('auth');
+
+Route::get('/Serie','ProjectController@index')->name('projects');
+Route::post('/Serie/create', 'ProjectController@store')->name('project.store');
+Route::get('/Serie/create', 'ProjectController@create')->name('project.create');
+Route::get('/Serie/{id}/edit','ProjectController@edit')->name('project.edit');
+Route::post('/Serie/{id}/delete','ProjectController@destroy')->name('project.destroy');
+Route::get('/Serie/{id}','ProjectController@show')->name('project.show');
