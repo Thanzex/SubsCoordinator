@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class GroupUser extends Migration
+class TaskUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class GroupUser extends Migration
      */
     public function up()
     {
-        Schema::create('group_user', function (Blueprint $table) {
+        //
+        Schema::create('task_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('group_id');
-            $table->integer('user_id');            
+            $table->integer('task_id');
+            $table->integer('user_id');
+            $table->integer('position');
             $table->timestamps();
         });
-        //
-        
     }
 
     /**
@@ -31,6 +31,6 @@ class GroupUser extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('group_user');
+        Schema::dropIfExists('task_user');
     }
 }

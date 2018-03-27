@@ -24,8 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasks = Auth::user()->activeTasks();
-        $revs = Auth::user()->tasks_manager()->get();
+        $tasks = Auth::user()->activeTasks()->with('project:name,id','members:nick')->get();
+        $revs = Auth::user()->tasks_manager()->with(['project:name,id','members:nick'])->get();
         $teams = Auth::user()->teams;
         return view('home', ["tasks"=>$tasks , "revs"=>$revs , 'teams' =>$teams ]);
     }

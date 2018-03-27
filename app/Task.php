@@ -22,8 +22,8 @@ class Task extends Model
         return $this->belongsTo(User::class,'manager_id');
     }
 
-    public function group() {
-        return $this->belongsTo(Group::class);
+    public function members() {
+        return $this->belongsToMany(User::class);
     }
 
     public function scores() {

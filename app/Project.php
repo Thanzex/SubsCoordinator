@@ -9,11 +9,11 @@ class Project extends Model
     //
 
     protected $fillable = [
-        'type', 'name', 'manager', 'team', 'thumb', 'active'
+        'type', 'name', 'manager', 'thumb', 'active'
     ];
 
-    public function team() {
-        return $this->hasOne(Team::class);
+    public function members() {
+        return $this->belongsToMany(User::class);
     }
 
     public function tasks() {
