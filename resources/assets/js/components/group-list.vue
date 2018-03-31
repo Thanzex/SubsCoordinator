@@ -25,8 +25,8 @@
               </div>
             </div>
             <div class="input-group-append select-width">
-              <select v-model="utente.nick" class="form-control selectpicker" name="groupMember[]" id="selector" :value="utente.nick" >
-                <option v-for="user in users" :data-tokens="user.name + ' ' + user.surname + ' ' + user.nick" :value="user.nick" v-bind:key="user.nick">{{user.nick}}</option>
+              <select v-model="utenti[index]" class="form-control selectpicker" name="groupMember[]" id="selector" :value="utente">
+                <option v-for="user in users" :data-tokens="user.name + ' ' + user.surname + ' ' + user.nick" v-bind:key="user.nick">{{user.nick}}</option>
               </select>
             </div>
 
@@ -49,36 +49,8 @@
 <script>
 $(document).ready( function() {
   setWidth();
-  // var observer = new MutationObserver(function() {
-  // $('.list-group').on('show', function(){
-    // new ResizeObserver(setWidth).observe(document.querySelector('.input-group'));
-    // console.log("Observing!");
-  // }).observe(document.querySelector('.input-group'));
-  // );
-
-  // var observer = new MutationObserver(function(mutations) {
-  //     mutations.forEach(function(mutation) {
-  //         console.log(mutation)
-  //         if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-  //             // element added to DOM
-  //             var hasClass = [].some.call(mutation.addedNodes, function(el) {
-  //                 return el.classList.contains('.input-group')
-  //             });
-  //             if (hasClass) {
-  //                 // element has class `MyClass`
-  //                 console.log('element ".input-group" added');
-  //             }
-  //         }
-  //     });
-  //  });
-
-  // var config = {
-  //     attributes: true,
-  //     childList: true,
-  //     characterData: true
-  // };
-
-  // observer.observe(document.body, config);
+    new ResizeObserver(setWidth).observe(document.querySelector('.list-group')); //------------
+   
     window.onresize = function() {
       setWidth();
     }
@@ -97,7 +69,14 @@ $('.select-width').width(total-(2*b1+b2));
 import draggable from "vuedraggable";
 export default {
   mounted() {
-    this.utenti = (this.present)?this.present:[]
+    this.utenti = (this.present)?this.present:[];
+    var temp = this;
+    this.$nextTick(function(){
+      $(".input-group-append .selectpicker").each(  function(i) {
+        console.log("Setting ",$(this)," to ",temp.utenti[i]);
+        $( this ).selectpicker('val',temp.utenti[i]);
+      });
+    })
   },
   components: {
     draggable
@@ -106,7 +85,7 @@ export default {
   data() {
     return {
       utenti: [],
-      csrf: document.head.querySelector('meta[name="csrf-token"]').content
+      //csrf: document.head.querySelector('meta[name="csrf-token"]').content
     };
   },
   methods: {
@@ -128,14 +107,24 @@ export default {
     },
     loadPrevious1: function() {
       this.utenti = this.previous_1;
-      this.$nextTick(function () {
+      var temp = this;
+      this.$nextTick(function(){
+        $(".input-group-append .selectpicker").each(  function(i) {
+          console.log("Setting ",$(this)," to ",temp.utenti[i]);
+          $( this ).selectpicker('val',temp.utenti[i]);
+        });
         $('.selectpicker').selectpicker('refresh');
         setWidth();
       })
     },
     loadPrevious2: function() {
       this.utenti = this.previous_2;
-      this.$nextTick(function () {
+      var temp = this;
+      this.$nextTick(function(){
+        $(".input-group-append .selectpicker").each(  function(i) {
+          console.log("Setting ",$(this)," to ",temp.utenti[i]);
+          $( this ).selectpicker('val',temp.utenti[i]);
+        });
         $('.selectpicker').selectpicker('refresh');
         setWidth();
       })

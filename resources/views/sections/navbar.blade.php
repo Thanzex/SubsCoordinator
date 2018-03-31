@@ -9,13 +9,13 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav column" style="width: 100%;">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home
-          <span class="sr-only">(current)</span>
+      <a class="nav-link" href="{{route('home')}}">Home
+          {{--  <span class="sr-only">(current)</span>  --}}
         </a>
       </li>
       @if (Auth::user()->role < 5)
       <li class="nav-item">
-        <a class="nav-link" href="#"><div data-feather="folder" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Film/Serie</a>
+        <a class="nav-link" href="{{route('Serie.index')}}"><div data-feather="folder" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Film/Serie</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#"><div data-feather="film" class="navbar-icon" style="display:inline-block; "></div>&nbsp;Traduzioni</a>

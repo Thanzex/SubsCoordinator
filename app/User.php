@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function teams() 
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsToMany(Project::class)->where('active','1');
     }
 
     public function tasks_manager() 

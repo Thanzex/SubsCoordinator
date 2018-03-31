@@ -1,8 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Validator;
+// namespace App\Rules;
+// use Illuminate\Contracts\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -14,7 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $projects = \App\Project::all();
+        $projects = \App\Project::where('active','1')->get();
         return view('project.projects')->with("projects",$projects);
     }
 
@@ -41,8 +47,28 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        // $utenti_autorizzati = \App\User::where('role','<','5')->get();
         //App\Task::first()->group->members()->attach(App\User::where('nick', '=', 'nick4')->get())
-        return $request;
+        $validation = $request->validate([
+            "name" => "required|unique:projects,name",
+            'type' => ["required",Rule::in('Serie','Film')],
+            // 'manager' =>    ['required',Rule::exists('users:id')->where('role','<','5')],
+        ]);
+
+        $project = new \App\Project;
+        $project->name=$request->input('name');
+        $project->type=$request->input('type');
+        $project->manager=$request->input('manager');
+        
+        $project->save(); 
+        if($request->input('createTeam')) {
+            foreach($request->input('groupMember') as $i => $user){
+                $project->members()->attach($user,['position' => $i+1] );
+                // Log::debug($user);
+            }
+        }
+        return redirect(route('Serie.index'));
     }
 
     /**
@@ -56,6 +82,17 @@ class ProjectController extends Controller
         //
     }
 
+    public function formEdit(Request $request)
+    {
+        //
+        return $this->edit($request->input('project'));
+    }
+
+    public function formDestroy(Request $request)
+    {
+        //
+        return $this->destroy($request->input('project'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -65,6 +102,9 @@ class ProjectController extends Controller
     public function edit($id)
     {
         //
+        return view('project.edit',['data'=>\App\Project::with('members')->find($id),
+                                    'users' => \App\User::all(),
+                                    'id'=>$id]);
     }
 
     /**
@@ -77,6 +117,28 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validation = $request->validate([
+            "name" => "required",
+            'type' => ["required",Rule::in('Serie','Film')],
+            // 'manager' =>    ['required',Rule::exists('users:id')->where('role','<','5')],
+        ]);
+
+        $project = \App\Project::find($id);
+        $project->name=$request->input('name');
+        $project->type=$request->input('type');
+        $project->manager=$request->input('manager');
+
+        $project->save(); 
+        if($request->input('createTeam')) {
+            $project->members()->detach();
+            if ($request->input('groupMember')) {
+                foreach($request->input('groupMember') as $i => $user){
+                    $project->members()->attach(\App\User::where('nick','=',$user)->get()[0]->id,['position' => $i+1] );
+                    // Log::debug($user);
+                }
+            }   
+        }
+        return redirect(route('Serie.index'));
     }
 
     /**
@@ -88,6 +150,10 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
-        return "test";
+        //return "deactivating ".$id;
+        $project = \App\Project::find($id);
+        $project->active = 0;
+        $project->save();
+        return redirect(route('Serie.index'));
     }
 }

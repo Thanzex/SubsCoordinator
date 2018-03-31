@@ -17,9 +17,9 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('name');
-            $table->integer('manager');
-            $table->string('thumb');
-            $table->boolean('active');
+            $table->integer('manager')->default();;
+            $table->string('thumb')->default("");;
+            $table->boolean('active')->default(1);;
             $table->timestamps();
         });
     }

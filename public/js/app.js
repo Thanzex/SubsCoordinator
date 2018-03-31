@@ -49935,36 +49935,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 $(document).ready(function () {
   setWidth();
-  // var observer = new MutationObserver(function() {
-  // $('.list-group').on('show', function(){
-  // new ResizeObserver(setWidth).observe(document.querySelector('.input-group'));
-  // console.log("Observing!");
-  // }).observe(document.querySelector('.input-group'));
-  // );
+  new ResizeObserver(setWidth).observe(document.querySelector('.list-group')); //------------
 
-  // var observer = new MutationObserver(function(mutations) {
-  //     mutations.forEach(function(mutation) {
-  //         console.log(mutation)
-  //         if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-  //             // element added to DOM
-  //             var hasClass = [].some.call(mutation.addedNodes, function(el) {
-  //                 return el.classList.contains('.input-group')
-  //             });
-  //             if (hasClass) {
-  //                 // element has class `MyClass`
-  //                 console.log('element ".input-group" added');
-  //             }
-  //         }
-  //     });
-  //  });
-
-  // var config = {
-  //     attributes: true,
-  //     childList: true,
-  //     characterData: true
-  // };
-
-  // observer.observe(document.body, config);
   window.onresize = function () {
     setWidth();
   };
@@ -49981,6 +49953,13 @@ function setWidth() {
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.utenti = this.present ? this.present : [];
+    var temp = this;
+    this.$nextTick(function () {
+      $(".input-group-append .selectpicker").each(function (i) {
+        console.log("Setting ", $(this), " to ", temp.utenti[i]);
+        $(this).selectpicker('val', temp.utenti[i]);
+      });
+    });
   },
 
   components: {
@@ -49989,8 +49968,8 @@ function setWidth() {
   props: ["present", "users", 'previous_1', 'previous_2'],
   data: function data() {
     return {
-      utenti: [],
-      csrf: document.head.querySelector('meta[name="csrf-token"]').content
+      utenti: []
+      //csrf: document.head.querySelector('meta[name="csrf-token"]').content
     };
   },
 
@@ -50012,14 +49991,24 @@ function setWidth() {
     },
     loadPrevious1: function loadPrevious1() {
       this.utenti = this.previous_1;
+      var temp = this;
       this.$nextTick(function () {
+        $(".input-group-append .selectpicker").each(function (i) {
+          console.log("Setting ", $(this), " to ", temp.utenti[i]);
+          $(this).selectpicker('val', temp.utenti[i]);
+        });
         $('.selectpicker').selectpicker('refresh');
         setWidth();
       });
     },
     loadPrevious2: function loadPrevious2() {
       this.utenti = this.previous_2;
+      var temp = this;
       this.$nextTick(function () {
+        $(".input-group-append .selectpicker").each(function (i) {
+          console.log("Setting ", $(this), " to ", temp.utenti[i]);
+          $(this).selectpicker('val', temp.utenti[i]);
+        });
         $('.selectpicker').selectpicker('refresh');
         setWidth();
       });
@@ -52112,13 +52101,13 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: utente.nick,
-                              expression: "utente.nick"
+                              value: _vm.utenti[index],
+                              expression: "utenti[index]"
                             }
                           ],
                           staticClass: "form-control selectpicker",
                           attrs: { name: "groupMember[]", id: "selector" },
-                          domProps: { value: utente.nick },
+                          domProps: { value: utente },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -52130,8 +52119,8 @@ var render = function() {
                                   return val
                                 })
                               _vm.$set(
-                                utente,
-                                "nick",
+                                _vm.utenti,
+                                index,
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -52151,8 +52140,7 @@ var render = function() {
                                   user.surname +
                                   " " +
                                   user.nick
-                              },
-                              domProps: { value: user.nick }
+                              }
                             },
                             [_vm._v(_vm._s(user.nick))]
                           )
